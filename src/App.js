@@ -1,8 +1,8 @@
 import React from 'react';
 
-export default function Square() {
+export default function Board() {
   return (
-    <>
+    <div>
       <div className="board-row">
         <button className="square">1</button>
         <button className="square">2</button>
@@ -18,6 +18,6 @@ export default function Square() {
         <button className="square">8</button>
         <button className="square">9</button>
       </div>
-    </>
+    </div>
   );
 }
