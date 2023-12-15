@@ -72,6 +72,7 @@ export default function Game() {
   const [history, setHistory] = useState([[Array(9).fill(null)]]);
   const [currentMove, setCurrentMove] = useState(0);
   const currentSquares = history[currentMove][0];
+  const [isAscending, setIsAscending] = useState(true);
 
   function handlePlay(nextSquares, nextColRow) {
     const nextHistory = [...history.slice(0, currentMove + 1), [nextSquares, nextColRow]];
@@ -99,13 +100,23 @@ export default function Game() {
     );
   });
 
+
+  if (!isAscending) {
+    moves.reverse();
+  }
+
   return (
     <div className="game">
       <div className="game-board">
         <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} />
       </div>
+      <div>
+        <button onClick={() => setIsAscending(!isAscending)}>
+          {isAscending ? '昇順に表示' : '降順に表示'}
+        </button>
+      </div>
       <div className="game-info">
-        <ol>{moves}</ol>
+        <ol　className="moves-list">{moves}</ol>
       </div>
     </div>
   );

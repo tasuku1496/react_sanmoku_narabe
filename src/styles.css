@@ -103,3 +103,7 @@ body {
 .game-info {
   margin-left: 20px;
 }
+
+.moves-list {
+  list-style-type: disc; /* 箇条書きの点を使用 */
+}
