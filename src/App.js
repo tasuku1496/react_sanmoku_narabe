@@ -32,8 +32,10 @@ function Board({ xIsNext, squares, onPlay }) {
   const winnerInfo = calculateWinner(squares);
 
   let status;
-  if (winner) {
-    status = 'Winner: ' + winner["winner"];
+  if (winner && winner.winner) {
+    status = 'Winner: ' + winner.winner;
+  } else if (winner && winner.isDraw) {
+    status = 'Draw';
   } else {
     status = 'Next player: ' + (xIsNext ? 'X' : 'O');
   }
@@ -126,5 +128,11 @@ function calculateWinner(squares) {
       return { winner: squares[a], winningSquares: [a, b, c] };
     }
   }
+  // 引き分けの判定
+  const isDraw = squares.every(square => square !== null);
+  if (isDraw) {
+    return { winner: null, winningSquares: [], isDraw: true };
+  }
+
   return null;
 }
