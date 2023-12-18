@@ -44,24 +44,20 @@ function Board({ xIsNext, squares, onPlay }) {
 const highlight = squares.map((_, index) =>
   winnerInfo && winnerInfo.winningSquares.includes(index));
 
+  // 2重ループでマス目を生成
   return (
     <div>
       <div className="status">{status}</div>
-      <div className="board-row">
-        <Square value={squares[0]} onSquareClick={() => handleClick(0)} highlight={highlight[0]} />
-        <Square value={squares[1]} onSquareClick={() => handleClick(1)} highlight={highlight[1]} />
-        <Square value={squares[2]} onSquareClick={() => handleClick(2)} highlight={highlight[2]} />
-      </div>
-      <div className="board-row">
-        <Square value={squares[3]} onSquareClick={() => handleClick(3)} highlight={highlight[3]} />
-        <Square value={squares[4]} onSquareClick={() => handleClick(4)} highlight={highlight[4]} />
-        <Square value={squares[5]} onSquareClick={() => handleClick(5)} highlight={highlight[5]}/>
-      </div>
-      <div className="board-row">
-        <Square value={squares[6]} onSquareClick={() => handleClick(6)} highlight={highlight[6]}/>
-        <Square value={squares[7]} onSquareClick={() => handleClick(7)} highlight={highlight[7]}/>
-        <Square value={squares[8]} onSquareClick={() => handleClick(8)} highlight={highlight[8]}/>
-      </div>
+      {Array(3).fill(null).map((row, rowIndex) => (
+        <div className="board-row" key={rowIndex}>
+          {Array(3).fill(null).map((col, colIndex) => {
+            const squareIndex = rowIndex * 3 + colIndex;
+            return (
+              <Square key={squareIndex} value={squares[squareIndex]} onSquareClick={() => handleClick(squareIndex)} highlight={highlight[squareIndex]}/>
+            );
+          })}
+        </div>
+      ))}
     </div>
   );
 }
